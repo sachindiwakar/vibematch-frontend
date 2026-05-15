@@ -11,29 +11,32 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoginForm, setIsLoginForm] = useState(true);
-  const [error, setError] = useState("");
   const [toast, setToast] = useState(null);
 
   const dispatch = useDispatch();
+
   const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
       const res = await axios.post(
         BASE_URL + "/auth/login",
-        { email, password },
-        { withCredentials: true },
+        {
+          email,
+          password,
+        },
+        {
+          withCredentials: true,
+        },
       );
 
       dispatch(addUser(res.data.data));
 
-      dispatch(addUser(res.data.data));
       navigate("/");
     } catch (err) {
-      setError(err?.response?.data?.message || "Something went wrong");
-
       setToast({
         type: "error",
+
         message: err?.response?.data?.message || "Login failed",
       });
 
@@ -45,12 +48,20 @@ const Login = () => {
     try {
       await axios.post(
         BASE_URL + "/auth/signup",
-        { firstName, lastName, email, password },
-        { withCredentials: true },
+        {
+          firstName,
+          lastName,
+          email,
+          password,
+        },
+        {
+          withCredentials: true,
+        },
       );
 
       setToast({
         type: "success",
+
         message: "Signup successful! Check your email.",
       });
 
@@ -60,10 +71,9 @@ const Login = () => {
 
       setTimeout(() => setToast(null), 3000);
     } catch (err) {
-      setError(err?.response?.data?.message || "Something went wrong");
-
       setToast({
         type: "error",
+
         message: err?.response?.data?.message || "Signup failed",
       });
 
@@ -73,6 +83,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     isLoginForm ? handleLogin() : handleSignUp();
   };
 
@@ -89,6 +100,7 @@ const Login = () => {
               <>
                 <fieldset className="fieldset">
                   <legend className="fieldset-legend">First Name</legend>
+
                   <input
                     type="text"
                     className="input"
@@ -99,6 +111,7 @@ const Login = () => {
 
                 <fieldset className="fieldset">
                   <legend className="fieldset-legend">Last Name</legend>
+
                   <input
                     type="text"
                     className="input"
@@ -111,6 +124,7 @@ const Login = () => {
 
             <fieldset className="fieldset">
               <legend className="fieldset-legend">Email</legend>
+
               <input
                 type="email"
                 className="input"
@@ -121,6 +135,7 @@ const Login = () => {
 
             <fieldset className="fieldset">
               <legend className="fieldset-legend">Password</legend>
+
               <input
                 type="password"
                 className="input"
@@ -128,8 +143,6 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </fieldset>
-
-            {error && <p className="text-red-400 text-sm">{error}</p>}
 
             <div className="card-actions justify-center mt-4">
               <button type="submit" className="btn btn-primary">
@@ -142,7 +155,6 @@ const Login = () => {
             className="text-center mt-2 cursor-pointer hover:text-primary"
             onClick={() => {
               setIsLoginForm(!isLoginForm);
-              setError("");
             }}
           >
             {isLoginForm
