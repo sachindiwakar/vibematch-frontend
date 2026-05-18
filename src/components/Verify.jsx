@@ -1,13 +1,19 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSearchParams, useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
 import { BASE_URL } from "../utils/constants";
+import { addUser } from "../store/slices/userSlice";
 
 const Verify = () => {
   const [params] = useSearchParams();
+
   const navigate = useNavigate();
 
+  const dispatch = useDispatch();
+
   const [status, setStatus] = useState("loading");
+
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -17,13 +23,21 @@ const Verify = () => {
 
         if (!token) {
           setStatus("error");
+
           setMessage("Invalid verification link");
+
           return;
         }
 
         await axios.get(`${BASE_URL}/auth/verify?token=${token}`, {
           withCredentials: true,
         });
+
+        const profileRes = await axios.get(`${BASE_URL}/profile/view`, {
+          withCredentials: true,
+        });
+
+        dispatch(addUser(profileRes.data.data));
 
         setStatus("success");
 
@@ -32,6 +46,7 @@ const Verify = () => {
         }, 3000);
       } catch (err) {
         setStatus("error");
+
         setMessage(
           err?.response?.data?.message ||
             err?.response?.data ||
@@ -50,6 +65,7 @@ const Verify = () => {
           {status === "loading" && (
             <>
               <span className="loading loading-spinner loading-lg"></span>
+
               <h2 className="text-xl font-semibold mt-4">
                 Verifying your email...
               </h2>
@@ -59,17 +75,21 @@ const Verify = () => {
           {status === "success" && (
             <>
               <div className="text-success text-5xl">✓</div>
+
               <h2 className="text-xl font-semibold mt-2">Email Verified!</h2>
-              <p className="text-gray-500">Redirecting to login...</p>
+
+              <p className="text-gray-500">Redirecting...</p>
             </>
           )}
 
           {status === "error" && (
             <>
               <div className="text-error text-5xl">✕</div>
+
               <h2 className="text-xl font-semibold mt-2">
                 Verification Failed
               </h2>
+
               <p className="text-sm text-gray-500">{message}</p>
 
               <button
