@@ -112,11 +112,11 @@ const Premium = () => {
             <h2 className="text-2xl font-bold text-primary">₹300</h2>
 
             <ul className="space-y-2">
-              <li>✓ Chat with connections</li>
-
-              <li>✓ 100 connection requests/day</li>
-
               <li>✓ Premium Badge</li>
+
+              <li>✓ Increased Profile Visibility</li>
+
+              <li>✓ Priority Customer Support</li>
 
               <li>✓ 3 Months Access</li>
             </ul>
@@ -139,11 +139,15 @@ const Premium = () => {
             <h2 className="text-2xl font-bold text-warning">₹700</h2>
 
             <ul className="space-y-2">
-              <li>✓ Chat with connections</li>
-
-              <li>✓ Unlimited requests</li>
-
               <li>✓ Premium Badge</li>
+
+              <li>✓ Maximum Profile Visibility</li>
+
+              <li>✓ Better Match Discovery</li>
+
+              <li>✓ Featured Profile Placement</li>
+
+              <li>✓ Fast-Track Customer Support</li>
 
               <li>✓ 6 Months Access</li>
             </ul>

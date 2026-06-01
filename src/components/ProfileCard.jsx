@@ -9,6 +9,7 @@ const ProfileCard = ({ user }) => {
     photoUrl,
     about,
     interest,
+    isVerifiedBadge,
   } = user;
 
   return (
@@ -22,7 +23,15 @@ const ProfileCard = ({ user }) => {
       </figure>
 
       <div className="card-body">
-        <h2 className="card-title">{firstName + " " + lastName}</h2>
+        <h2 className="card-title">
+          {firstName + " " + lastName}
+
+          {isVerifiedBadge && (
+            <span className="text-blue-500" title="Premium Member">
+              ✔️
+            </span>
+          )}
+        </h2>
 
         <p>{about}</p>
 
