@@ -226,6 +226,7 @@ const EditProfile = ({ user }) => {
               photoUrl,
               about,
               interest,
+              isVerifiedBadge: user.isVerifiedBadge,
             }}
           />
         </div>

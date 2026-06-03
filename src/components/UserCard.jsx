@@ -52,8 +52,11 @@ const UserCard = ({ user }) => {
           {firstName + " " + lastName}
 
           {isVerifiedBadge && (
-            <span className="text-blue-500" title="Premium Member">
-              ✔️
+            <span
+              className="badge badge-primary badge-sm"
+              title="Premium Member"
+            >
+              ✓
             </span>
           )}
         </h2>

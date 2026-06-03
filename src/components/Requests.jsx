@@ -70,6 +70,7 @@ const Requests = () => {
             photoUrl,
             about,
             interest,
+            isVerifiedBadge,
           } = request.fromUser;
 
           return (
@@ -86,7 +87,18 @@ const Requests = () => {
               </figure>
 
               <div className="card-body py-3">
-                <h2 className="card-title">{firstName + " " + lastName}</h2>
+                <h2 className="font-bold flex items-center gap-2">
+                  {firstName + " " + lastName}
+
+                  {isVerifiedBadge && (
+                    <span
+                      className="badge badge-primary badge-sm"
+                      title="Premium Member"
+                    >
+                      ✓
+                    </span>
+                  )}
+                </h2>
 
                 <p className="text-sm opacity-70">{about}</p>
 
